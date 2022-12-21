@@ -17,7 +17,7 @@ const Screen = ({ endValue, error, valor }) => {
 
   return (
     <>
-      <Flex flexDirection="column">
+      <Flex flexDirection="column" color='white'>
         <Flex justifyContent='flex-end'>
         <Box marginRight="5" >
           <Text>{errorPopUp ? error : endValue}</Text>
