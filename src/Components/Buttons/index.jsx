@@ -1,8 +1,8 @@
 import { Button } from "@chakra-ui/react";
 import React from "react";
-import { useState } from "react";
 
-const Buttons = ({ value, operacion, screen }) => {
+const Buttons = ({ value, operacion }) => {
+
   const obtainData = (e) => {
     let valor = e.target.value;
     if (valor == "X") {
@@ -11,27 +11,14 @@ const Buttons = ({ value, operacion, screen }) => {
     if (valor == "%") {
       valor = "/";
     }
-    if(valor){
-      operacion(valor);
-    }
-  };
-
-  const test = (e) => {
-    let valor = e.key;
-    if (valor == "x" || valor == "X") {
-      valor = "*";
-    }
-    if (typeof valor == "number") {
-      operacion(valor);
-    }
+    operacion(valor);
   };
 
   return (
     <Button
       value={value}
-      onKeyUp={(e) => test(e)}
+      colorScheme={value === "C" ? "red" : "fullwhite.500"}
       onClick={(e) => obtainData(e)}
-      fontFamily="cursive"
     >
       {value}
     </Button>

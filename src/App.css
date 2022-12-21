@@ -38,16 +38,13 @@ body{
 .row{
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-    /* margin: 0 auto; */
     gap: 10px;
 }
 .row > button {
-    background-color: white;
+    background-color: #ffffff;
     color: black;
     padding: 5px 5px;
     width: 20%;
     height: 90px;
     margin-top: 5px;
-
 }

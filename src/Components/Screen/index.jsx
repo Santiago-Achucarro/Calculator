@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const Screen = ({ screen, endValue, error }) => {
+const Screen = ({ endValue, error, valor }) => {
 
   const [errorPopUp, setErrorPopUp] = useState(false)
 
@@ -19,11 +19,13 @@ const Screen = ({ screen, endValue, error }) => {
     <>
       <Flex flexDirection="column">
         <Flex justifyContent='flex-end'>
-        <Box marginRight="5">{errorPopUp ? error : endValue}</Box>
+        <Box marginRight="5" >
+          <Text>{errorPopUp ? error : endValue}</Text>
+        </Box>
         </Flex>
         <Flex justifyContent='end'>
           <Box marginRight="5" fontSize="sm" fontFamily='cursive'>
-            {screen}
+            {valor}
           </Box>
         </Flex>
       </Flex>

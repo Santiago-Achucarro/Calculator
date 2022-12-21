@@ -3,37 +3,50 @@ import { useState } from "react";
 import "./App.css";
 import { Buttons } from "./Components/Buttons";
 import { Screen } from "./Components/Screen";
-import { evaluate, prodDependencies,  } from "mathjs";
+import { evaluate, prodDependencies, typeOf } from "mathjs";
 import { useRef } from "react";
 
 function App() {
-  const [screen, setScreen] = useState("");
+  const [valor, setValor] = useState("");
   const [endValue, setEndValue] = useState("");
   const [error, setError] = useState("");
   const ops = ["/", "*", "+", "-"];
 
   const operacion = (value) => {
-    setScreen((prev) => prev + value);
+    if (!ops.includes(value)) {
+      setValor((prev) => prev + value);
+    } else {
+      if (!ops.includes(valor.slice(-1))) {
+        setValor((prev) => prev + value);
+      } else {
+        console.log("no podes añadir otra operacion");
+      }
+    }
   };
+
+ 
   const calculate = () => {
     try {
-      if (screen || evaluate(screen) ) {
-        setScreen((prev) =>
-          evaluate(prev) === 0 ? (prev = "") : evaluate(prev)
+      if (valor) {
+        if(!ops.includes(valor.slice(-1))){
+          setValor((prev) =>
+          evaluate(prev) === 0 ? (prev = "") : evaluate(prev).toString()
         );
-        setEndValue(evaluate(screen));
+        setEndValue(evaluate(valor));
+        }else{
+          console.log("calculo no permitido")
+        }
       } else {
         setError("Syntax error");
       }
     } catch (error) {
-      console.log(error)
-      setScreen('')
+      setValor("");
     }
   };
 
   const clear = () => {
-    if (screen) {
-      setScreen("");
+    if (valor) {
+      setValor("");
     }
   };
 
@@ -41,33 +54,32 @@ function App() {
     <div className="containerApp">
       <div className="contenedor-Calc">
         <div className="contenedor-screen">
-          <Screen screen={screen} endValue={endValue} error={error} />
+          <Screen valor={valor} endValue={endValue} error={error} />
         </div>
-
         <div className="contenedor-btns">
           <div className="row">
-            <Buttons value={7} operacion={operacion} screen={screen} />
-            <Buttons value={8} operacion={operacion} screen={screen} />
-            <Buttons value={9} operacion={operacion} screen={screen} />
-            <Buttons value={"+"} operacion={operacion} screen={screen} />
+            <Buttons value={7} operacion={operacion} />
+            <Buttons value={8} operacion={operacion} />
+            <Buttons value={9} operacion={operacion} />
+            <Buttons value={"+"} operacion={operacion} />
           </div>
           <div className="row">
-            <Buttons value={4} operacion={operacion} screen={screen} />
-            <Buttons value={5} operacion={operacion} screen={screen} />
-            <Buttons value={6} operacion={operacion} screen={screen} />
-            <Buttons value={"-"} operacion={operacion} screen={screen} />
+            <Buttons value={4} operacion={operacion} />
+            <Buttons value={5} operacion={operacion} />
+            <Buttons value={6} operacion={operacion} />
+            <Buttons value={"-"} operacion={operacion} />
           </div>
           <div className="row">
-            <Buttons value={1} operacion={operacion} screen={screen} />
-            <Buttons value={2} operacion={operacion} screen={screen} />
-            <Buttons value={3} operacion={operacion} screen={screen} />
-            <Buttons value={"%"} operacion={operacion} screen={screen} />
+            <Buttons value={1} operacion={operacion} />
+            <Buttons value={2} operacion={operacion} />
+            <Buttons value={3} operacion={operacion} />
+            <Buttons value={"%"} operacion={operacion} />
           </div>
           <div className="row">
-            <Buttons value={0} operacion={operacion} screen={screen} />
-            <Buttons value={"C"} operacion={clear} screen={screen} />
-            <Buttons value={"="} operacion={calculate} screen={screen} />
-            <Buttons value={"X"} operacion={operacion} screen={screen} />
+            <Buttons value={0} operacion={operacion} />
+            <Buttons value={"C"} operacion={clear} />
+            <Buttons value={"="} operacion={calculate} />
+            <Buttons value={"X"} operacion={operacion} />
           </div>
         </div>
       </div>
